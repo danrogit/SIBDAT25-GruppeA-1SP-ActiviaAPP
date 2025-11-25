@@ -11,18 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Navigation;
 
-namespace ActiviaAPP
+namespace ActiviaAPP.Popups
 {
-    public partial class MainWindow : Window
+    public partial class CreateActivity : Window   // FIX: uppercase C
     {
-        public MainWindow()
+        public CreateActivity()
         {
             InitializeComponent();
+        }
 
-            // Laver startsiden om til login
-            MainFrame.Navigate(new Login());
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

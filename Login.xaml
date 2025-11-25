@@ -1,0 +1,19 @@
+﻿<Page x:Class="ActiviaAPP.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Login">
+
+    <StackPanel Margin="40">
+        <TextBlock Text="Log ind" FontSize="24" Margin="0,0,0,20"/>
+
+        <TextBlock Text="Brugernavn"/>
+        <TextBox x:Name="UsernameBox" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Adgangskode"/>
+        <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20"/>
+
+        <Button Content="Log ind"
+                Width="100"
+                Click="logIn"/>
+    </StackPanel>
+</Page>

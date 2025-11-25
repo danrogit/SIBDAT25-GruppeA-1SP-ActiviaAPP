@@ -10,19 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace ActiviaAPP
 {
-    public partial class MainWindow : Window
+    public partial class User : Page
     {
-        public MainWindow()
+        // Attributter
+        public string username;
+        public string userPassword;
+        public string userFullName;
+        public string userMail;
+        public int userPhone;
+
+        public User()
         {
             InitializeComponent();
+        }
 
-            // Laver startsiden om til login
-            MainFrame.Navigate(new Login());
+        private void logOut(object sender, RoutedEventArgs e)
+        {
+            // Gå til startsiden
+            NavigationService?.Navigate(new Login());
         }
     }
 }

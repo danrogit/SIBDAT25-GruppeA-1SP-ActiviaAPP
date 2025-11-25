@@ -1,0 +1,86 @@
+﻿<Page x:Class="ActiviaAPP.Admin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Admin">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--Titel-->
+        <TextBlock Grid.Row="0"
+                   Text="Admin dashboard"
+                   FontSize="24"
+                   Margin="0,0,0,20"
+                   FontWeight="Bold"/>
+
+        <!--Kolonner-->
+        <Grid Grid.Row="0" Margin="0,40,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />   <!-- Venstre kolonne -->
+                <ColumnDefinition Width="*" />   <!-- Højre kolonne -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Venstre kolonne, aktiviteter -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Aktiviteter"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <!-- Aktiviteter -->
+                <ListBox x:Name="ActivitiesList"
+                         Height="200"
+                         SelectionChanged="activityList"/>
+
+                <!-- Tilføj ny aktivitet -->
+                <Button Content="+ Opret aktivitet"
+                        Margin="0,10,0,0"
+                        Click="addActivity"/>
+            </StackPanel>
+
+            <!-- Venstre kolonne, medlemmer  -->
+            <StackPanel Grid.Column="1" Margin="10">
+                <TextBlock Text="Medlemmer"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
+
+                <!-- Medlemsliste -->
+                <ListBox x:Name="userList"
+                         Height="200"/>
+
+                <!-- Slet aktivitet -->
+                <Button Content="- Slet aktivitet"
+                        Margin="0,10,0,0"
+                        Click="removeActivity"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Footeren -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Indstillinger -->
+            <Button Content="Indstillinger"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Width="120"
+                    Click="adminSettings"/>
+
+            <!-- Log ud -->
+            <Button Content="Log ud"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Width="120"
+                    Click="logOut"/>
+        </Grid>
+    </Grid>
+</Page>
+
+
