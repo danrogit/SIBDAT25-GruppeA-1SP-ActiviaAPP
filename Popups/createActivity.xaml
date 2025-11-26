@@ -7,21 +7,15 @@
         mc:Ignorable="d"
         Title="createActivity" Height="500" Width="400">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="38" Width="211" Margin="10,436,0,0"/>
+        <Button x:Name="Button" Content="Opret Aktivitet" HorizontalAlignment="Left" VerticalAlignment="Top" Height="38" Width="211" Margin="10,436,0,0" Click="Button_Click"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Tilføj ny aktivitet" VerticalAlignment="Top" Height="34" Width="380" FontSize="18" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,44,0,0" TextWrapping="Wrap" Text="Titel" VerticalAlignment="Top" Width="380" Height="35" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,84,0,0" TextWrapping="Wrap" Text="Type" VerticalAlignment="Top" Width="380" Height="35" TextChanged="TextBox_TextChanged"/>
-        <DatePicker HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="41" Width="380"/>
-        <RichTextBox Margin="10,170,10,205">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <TextBox x:Name="Titel" HorizontalAlignment="Center" Margin="0,44,0,0" TextWrapping="Wrap" Text="Titel" VerticalAlignment="Top" Width="380" Height="35" TextChanged="Titel_TextChanged"/>
+        <TextBox x:Name="Type" HorizontalAlignment="Center" Margin="0,84,0,0" TextWrapping="Wrap" Text="Type" VerticalAlignment="Top" Width="380" Height="35" TextChanged="Type_TextChanged"/>
+        <DatePicker x:Name="DatePicker" HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="41" Width="380"/>
         <Slider HorizontalAlignment="Center" Margin="0,293,0,0" VerticalAlignment="Top" Width="380" Height="22" Maximum="100" Minimum="1"/>
         <Rectangle HorizontalAlignment="Center" Height="100" Margin="0,324,0,0" Stroke="Black" VerticalAlignment="Top" Width="380"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="10,324,0,0" VerticalAlignment="Top" Width="374"/>
+        <TextBox x:Name="almTextBox" HorizontalAlignment="Center" Margin="0,170,0,0" TextWrapping="Wrap" Text="almTextBox" VerticalAlignment="Top" Width="380" TextChanged="almTextBox_TextChanged" Height="103"/>
 
     </Grid>
 </Window>
