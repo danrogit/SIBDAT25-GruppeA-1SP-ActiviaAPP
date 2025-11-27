@@ -8,12 +8,14 @@ using System.Windows.Media.Animation;
 
 namespace ActiviaAPP.Classes
 {
-    internal class Activity
+    public class ActivityClass
     {
-        public string activityTitle;
-        public int groupSize;
-        public DateTime date;
-        public double activityPrice;
+        public string activityTitle { get; set; }
+        public int groupSize { get; set; }
+        public DateTime date { get; set; }
+        public double activityPrice { get; set; }
+        public string activityType { get; set; }
+        public string activityDescription { get; set; }
 
         public void CreateActivity()
         {
