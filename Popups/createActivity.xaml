@@ -1,27 +1,86 @@
 ﻿<Window x:Class="ActiviaAPP.Popups.CreateActivity"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ActiviaAPP.Popups"
-        mc:Ignorable="d"
-        Title="createActivity" Height="500" Width="400">
-    <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Height="38" Width="211" Margin="10,436,0,0"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Tilføj ny aktivitet" VerticalAlignment="Top" Height="34" Width="380" FontSize="18" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,44,0,0" TextWrapping="Wrap" Text="Titel" VerticalAlignment="Top" Width="380" Height="35" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,84,0,0" TextWrapping="Wrap" Text="Type" VerticalAlignment="Top" Width="380" Height="35" TextChanged="TextBox_TextChanged"/>
-        <DatePicker HorizontalAlignment="Center" Margin="0,124,0,0" VerticalAlignment="Top" Height="41" Width="380"/>
-        <RichTextBox Margin="10,170,10,205">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
-        <Slider HorizontalAlignment="Center" Margin="0,293,0,0" VerticalAlignment="Top" Width="380" Height="22" Maximum="100" Minimum="1"/>
-        <Rectangle HorizontalAlignment="Center" Height="100" Margin="0,324,0,0" Stroke="Black" VerticalAlignment="Top" Width="380"/>
-        <Image HorizontalAlignment="Left" Height="100" Margin="10,324,0,0" VerticalAlignment="Top" Width="374"/>
+        Title="Create Activity" Height="605" Width="500"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titel -->
+        <TextBlock Text="Ny aktivitet"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20" FontFamily="Poppins" UseLayoutRounding="True" Foreground="#FFF95F20"/>
+
+        <!-- Stackpanel ( er lidt ligesom en div i webkode, det hjælper med layouttet -->
+        <StackPanel Grid.Row="1" Margin="0,0,0,20">
+
+            <!-- aktivitetTitel -->
+            <TextBlock Text="Titel" FontWeight="Bold" FontFamily="Poppins"/>
+            <TextBox x:Name="TitleBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" TextChanged="titleChange" Height="25"/>
+
+            <!-- aktivitetGenre - fungerer ligesom en dropdown med flere valgmuligheder -->
+            <TextBlock Text="Aktivitetstype" FontWeight="Bold" FontFamily="Poppins"/>
+            <ComboBox x:Name="TypeBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" Height="25"> <!-- styling -->
+                <ComboBoxItem Content="Sport"/>      <!-- kategori-->
+                <ComboBoxItem Content="Familie"/>    <!-- kategori-->
+                <ComboBoxItem Content="Eventyr"/>    <!-- kategori-->
+                <ComboBoxItem Content="Afslapning"/> <!-- kategori-->
+                <ComboBoxItem Content="Natur"/>      <!-- kategori-->
+                <ComboBoxItem Content="Kutur"/>      <!-- kategori-->
+            </ComboBox>
+
+            <!-- aktivitetDato -->
+            <TextBlock Text="Dato" FontWeight="Bold" FontFamily="Poppins"/>  <!-- styling -->
+            <DatePicker x:Name="DateBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" Height="25"/>
+
+            <!-- aktivitetBeskrivelse -->
+            <TextBlock Text="Beskrivelse" FontWeight="Bold" FontFamily="Poppins"/>
+            <TextBox x:Name="DescriptionBox"
+                     Height="80"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     BorderBrush="#FFC9D1DC" Background="#FFF2F5F9"
+                     Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold"/>
+
+            <!-- aktivitetDeltagere -->
+            <TextBlock Text="Maksimum antal deltagere" FontWeight="Bold" FontFamily="Poppins"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="1" Margin="0,0,10,0"/>
+                <Slider x:Name="ParticipantSlider"
+                        Minimum="1"
+                        Maximum="100"
+                        Value="10"
+                        Width="350"
+                        Margin="0,0,10,0"
+
+                        ValueChanged="participantValue"/>
+                <TextBlock Text="100" Margin="0,0,10,0"/>
+                <TextBlock x:Name="ParticipantValue" Text="10"/>
+            </StackPanel>
+
+            <!-- aktivitetCover -->
+            <TextBlock Text="Cover Billede" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Poppins"/>
+            <StackPanel Orientation="Horizontal" Height="115">
+                <Button Content="Vælg billede" Click="imgClick" Width="109" Height="112" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" FontFamily="Poppins" />
+                <Image x:Name="PreviewImage"
+                       Width="340" Height="111"
+                       OpacityMask="White"/>
+            </StackPanel>
+
+        </StackPanel>
+
+        <!-- Footer knapper -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Content="Annuller" Width="215" Margin="0,0,10,0" Click="cancelClick" FontFamily="Poppins"/>  <!-- annuller knap -->
+            <Button Content="Opret aktivitet" Width="215" Click="createClick" FontFamily="Poppins"/>  <!-- opret aktivitet knap -->
+        </StackPanel>
 
     </Grid>
+
 </Window>
