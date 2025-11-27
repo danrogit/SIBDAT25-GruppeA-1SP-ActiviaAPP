@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ActiviaAPP.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +23,24 @@ namespace ActiviaAPP
         public string adminName;
         public string adminPassword;
         public string adminCompany;
+      
+
+        public ObservableCollection<ActivityClass> ActivityList { get; } = new ObservableCollection<ActivityClass>();
+
 
         public Admin()
         {
             InitializeComponent();
+
+            //XAML henter sin reference herfra
+            DataContext = this;
+
         }
 
-        private void activityList(object sender, SelectionChangedEventArgs e)
+        public void activityList(object sender, SelectionChangedEventArgs e)
         {
             // Her skal aktiviteter vises
+
         }
 
         private void addActivity(object sender, RoutedEventArgs e)

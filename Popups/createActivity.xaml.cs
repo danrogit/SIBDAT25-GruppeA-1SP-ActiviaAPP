@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ActiviaAPP.Classes;
+using System.Collections.ObjectModel;
 
 namespace ActiviaAPP.Popups
 {
@@ -24,10 +26,16 @@ namespace ActiviaAPP.Popups
         public string ActivityDescription;
         public int MaxParticipants;
         public string CoverImagePath;
+        public string saveActivity;
+
+  
+        
+       
 
         public CreateActivity()
         {
             InitializeComponent();
+            
         }
 
         private void participantValue(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -88,6 +96,11 @@ namespace ActiviaAPP.Popups
 
             this.DialogResult = true;   // Bruges i Admin til at se om popup blev gemt
             this.Close();
+
+            if(!string.IsNullOrEmpty(saveActivity))
+                {
+
+            }
         }
 
         private void cancelClick(object sender, RoutedEventArgs e)

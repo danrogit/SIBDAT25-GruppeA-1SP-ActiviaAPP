@@ -31,9 +31,12 @@
                            Margin="0,0,0,10"/>
 
                 <!-- Aktiviteter -->
-                <ListBox x:Name="ActivitiesList"
-                         Height="200"
-                         SelectionChanged="activityList"/>
+                <ListBox x:Name="ActivityListBox"
+         ItemsSource="{Binding ActivityList}"
+         DisplayMemberPath="activityTitle"
+         SelectionChanged="activityList"
+         HorizontalAlignment="Stretch"
+         VerticalAlignment="Stretch" />
 
                 <!-- Tilføj ny aktivitet -->
                 <Button Content="+ Opret aktivitet"
