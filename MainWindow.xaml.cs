@@ -16,13 +16,16 @@ using System.Windows.Navigation;
 namespace ActiviaAPP
 {
     public partial class MainWindow : Window
-    {
+
+    {       
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Laver startsiden om til login
             MainFrame.Navigate(new Login());
+
         }
     }
 }

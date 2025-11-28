@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ActiviaAPP.Classes;
 
 namespace ActiviaAPP
 {
@@ -27,12 +28,19 @@ namespace ActiviaAPP
         public User()
         {
             InitializeComponent();
+            UserListbox.ItemsSource = ActivityStore.activities;
         }
 
         private void logOut(object sender, RoutedEventArgs e)
         {
             // Gå til startsiden
             NavigationService?.Navigate(new Login());
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+
         }
     }
 }

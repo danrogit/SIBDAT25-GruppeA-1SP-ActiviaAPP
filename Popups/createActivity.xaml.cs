@@ -88,6 +88,11 @@ namespace ActiviaAPP.Popups
 
             this.DialogResult = true;   // Bruges i Admin til at se om popup blev gemt
             this.Close();
+
+            /*if(!string.IsNullOrEmpty(saveActivity))
+                {
+
+            }*/
         }
 
         private void cancelClick(object sender, RoutedEventArgs e)

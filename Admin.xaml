@@ -31,7 +31,7 @@
                            Margin="0,0,0,10"/>
 
                 <!-- Aktiviteter -->
-                <ListBox x:Name="ActivitiesList"
+                <ListBox x:Name="ActivityListBox"
                          Height="200"
                          SelectionChanged="activityList"/>
 
