@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:ActiviaAPP"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <BooleanToVisibilityConverter x:Key="RegisteredToVisibility"/>
     </Application.Resources>
 </Application>

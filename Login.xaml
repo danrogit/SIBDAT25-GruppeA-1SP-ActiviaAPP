@@ -3,17 +3,95 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Login">
 
-    <StackPanel Margin="40">
-        <TextBlock Text="Log ind" FontSize="24" Margin="0,0,0,20"/>
+    <Page.Resources>
+        <!-- Orange button style (unchanged) -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFF95F20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFF95F20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFE05314"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
-        <TextBlock Text="Brugernavn"/>
-        <TextBox x:Name="UsernameBox" Margin="0,0,0,10"/>
+    <Grid Background="#FFE05314">
 
-        <TextBlock Text="Adgangskode"/>
-        <PasswordBox x:Name="PasswordBox" Margin="0,0,0,20"/>
+        <!-- Centered login card -->
+        <Border Width="350"
+                Padding="30"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#FFC9D1DC"
+                BorderThickness="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
 
-        <Button Content="Log ind"
-                Width="100"
-                Click="logIn"/>
-    </StackPanel>
+            <StackPanel>
+
+                <!-- logo -->
+                <Image Source="/Img/activia-logo.png"
+                       Width="160"
+                       Height="Auto"
+                       Margin="0,25,0,35"
+                       HorizontalAlignment="Center"/>
+
+                <!-- Brugernavn -->
+                <TextBlock Text="Brugernavn"
+                           FontWeight="Bold"
+                           FontFamily="Poppins"/>
+                <TextBox x:Name="UsernameBox"
+                         Margin="0,5,0,15"
+                         Height="30"
+                         FontFamily="Yu Gothic UI Semibold"
+                         Background="#FFF2F5F9"
+                         BorderBrush="#FFC9D1DC"/>
+
+                <!-- Password -->
+                <TextBlock Text="Adgangskode"
+                           FontWeight="Bold"
+                           FontFamily="Poppins"/>
+                <PasswordBox x:Name="PasswordBox"
+                             Margin="0,5,0,25"
+                             Height="30"
+                             FontFamily="Yu Gothic UI Semibold"
+                             Background="#FFF2F5F9"
+                             BorderBrush="#FFC9D1DC"/>
+
+                <!-- ORANGE LOGIN -->
+                <Button Content="Log ind"
+                        Style="{StaticResource OrangeButton}"
+                        Margin="0,0,0,10"
+                        Click="logIn"/>
+
+                <!-- ORANGE SIGNUP -->
+                <Button Content="Opret bruger"
+                        Style="{StaticResource OrangeButton}"
+                        Click="GoToSignUp"/>
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
 </Page>

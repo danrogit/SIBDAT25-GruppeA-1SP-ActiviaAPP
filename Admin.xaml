@@ -3,84 +3,152 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Admin">
 
+    <Page.Resources>
+
+        <!-- 🔥 Orange Activia Button Style -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFF95F20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFF95F20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFE05314"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--Titel-->
-        <TextBlock Grid.Row="0"
-                   Text="Admin dashboard"
-                   FontSize="24"
-                   Margin="0,0,0,20"
-                   FontWeight="Bold"/>
+        <!-- TITEL -->
+        <TextBlock Text="Admin dashboard"
+                   Grid.Row="0"
+                   FontFamily="Poppins"
+                   FontWeight="Bold"
+                   FontSize="26"
+                   Foreground="#FFF95F20"
+                   Margin="0,0,0,20"/>
 
-        <!--Kolonner-->
-        <Grid Grid.Row="0" Margin="0,40,0,20">
+        <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />   <!-- Venstre kolonne -->
-                <ColumnDefinition Width="*" />   <!-- Højre kolonne -->
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Venstre kolonne, aktiviteter -->
+            <!-- VENSTRE KOLONNE -->
             <StackPanel Grid.Column="0" Margin="10">
+
                 <TextBlock Text="Aktiviteter"
                            FontSize="20"
+                           FontFamily="Poppins"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <!-- Aktiviteter -->
                 <ListBox x:Name="ActivityListBox"
-                         Height="200"
-                         SelectionChanged="activityList"/>
+                         Height="230"
+                         FontFamily="Yu Gothic UI Semibold"
+                         SelectionChanged="activityList"
+                         MouseDoubleClick="ActivityListBox_MouseDoubleClick"/>
 
-                <!-- Tilføj ny aktivitet -->
-                <Button Content="+ Opret aktivitet"
-                        Margin="0,10,0,0"
-                        Click="addActivity"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+
+                    <Button Content="+ Opret aktivitet"
+                            Style="{StaticResource OrangeButton}"
+                            Width="140"
+                            Margin="0,0,10,0"
+                            Click="addActivity"/>
+
+                    <Button Content="- Slet aktivitet"
+                            Style="{StaticResource OrangeButton}"
+                            Width="140"
+                            Margin="0,0,10,0"
+                            Click="removeActivity"/>
+
+                    <Button Content="Åbn aktivitet"
+                            Style="{StaticResource OrangeButton}"
+                            Width="140"
+                            Click="OpenActivity"/>
+                </StackPanel>
             </StackPanel>
 
-            <!-- Venstre kolonne, medlemmer  -->
+            <!-- HØJRE KOLONNE -->
             <StackPanel Grid.Column="1" Margin="10">
+
                 <TextBlock Text="Medlemmer"
                            FontSize="20"
+                           FontFamily="Poppins"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-                <!-- Medlemsliste -->
                 <ListBox x:Name="userList"
-                         Height="200"/>
+                         Height="230"
+                         FontFamily="Yu Gothic UI Semibold"
+                         SelectionChanged="userList_SelectionChanged"/>
 
-                <!-- Slet aktivitet -->
-                <Button Content="- Slet aktivitet"
+                <Button x:Name="DeleteUser"
+                        Content="Slet medlem"
+                        Style="{StaticResource OrangeButton}"
+                        Width="140"
                         Margin="0,10,0,0"
-                        Click="removeActivity"/>
+                        Click="Button_Click"/>
             </StackPanel>
         </Grid>
 
-        <!-- Footeren -->
-        <Grid Grid.Row="1">
+        <!-- FOOTER: upload buttons grouped left -->
+        <Grid Grid.Row="2"      
+              Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- Indstillinger -->
-            <Button Content="Indstillinger"
-                    Grid.Column="0"
-                    HorizontalAlignment="Left"
-                    Width="120"
-                    Click="adminSettings"/>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Upload brugere (CSV)"
+                        Style="{StaticResource OrangeButton}"
+                        Width="180" 
+                        Margin="0,0,10,0"
+                        Click="adminSettings"/>
+                <Button Content="Upload aktiviteter (CSV)"
+                        Style="{StaticResource OrangeButton}"
+                        Width="180"
+                        Click="UploadActivities"/>
+            </StackPanel>
 
-            <!-- Log ud -->
             <Button Content="Log ud"
+                    Style="{StaticResource OrangeButton}"
                     Grid.Column="1"
+                    Width="140"
                     HorizontalAlignment="Right"
-                    Width="120"
                     Click="logOut"/>
         </Grid>
+
     </Grid>
 </Page>
-
-

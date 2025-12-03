@@ -1,16 +1,160 @@
-﻿<Page
+﻿<Page x:Class="ActiviaAPP.User"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ActiviaAPP.User"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:ActiviaAPP.Classes"
+      mc:Ignorable="d"
       Title="User">
 
-    <StackPanel Margin="40">
-        <TextBlock Text="Medlem dashboard" FontSize="24" Margin="0,0,0,20"/>
-        <Button Content="Log ud" Width="100" Click="logOut"/>
-        <ListBox x:Name="UserListbox"
-         Height="200"
-         Width="400"
-         SelectionChanged="ListBox_SelectionChanged"
-         Margin="0,12,0,0"/>
-    </StackPanel>
+    <Page.Resources>
+
+        <!-- Converter -->
+        <local:RegisteredToVisibilityConverter x:Key="RegisteredToVisibility"/>
+
+        <!-- 🔥 Orange Activia Button Style -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFF95F20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFF95F20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFE05314"/>
+                            </Trigger>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+
+
+    <Grid Background="#FFF7F9FC">
+
+        <StackPanel Margin="40" HorizontalAlignment="Center">
+
+            <!-- Titel -->
+            <TextBlock Text="Medlem dashboard"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       FontFamily="Poppins"
+                       Foreground="#FFF95F20"
+                       Margin="0,0,0,25"/>
+
+            <!-- Liste over aktiviteter -->
+            <Border Width="550"
+                    Padding="15"
+                    Background="White"
+                    CornerRadius="10"
+                    BorderBrush="#FFC9D1DC"
+                    BorderThickness="1">
+
+                <ListBox x:Name="UserListbox"
+                         Height="320"
+                         BorderThickness="0"
+                         FontFamily="Yu Gothic UI Semibold"
+                         SelectionChanged="ListBox_SelectionChanged"
+                         MouseDoubleClick="UserListbox_MouseDoubleClick">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:ActivityClass}">
+                            <Border Padding="10"
+                                    Margin="0,4,0,4"
+                                    Background="#FFF2F5F9"
+                                    BorderBrush="#FFC9D1DC"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+
+                                <StackPanel Orientation="Horizontal">
+
+                                    <!-- Titel + dato -->
+                                    <StackPanel Width="380">
+                                        <TextBlock Text="{Binding ActivityTitle}"
+                                                   FontWeight="Bold"
+                                                   FontSize="14"
+                                                   FontFamily="Poppins"/>
+
+                                        <TextBlock Text="{Binding Date, StringFormat='dd-MM-yyyy'}"
+                                                   FontSize="11"
+                                                   Foreground="Gray"
+                                                   Margin="0,2,0,0"/>
+                                    </StackPanel>
+
+                                    <!-- Status -->
+                                    <TextBlock VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               Foreground="Green"
+                                               FontFamily="Poppins">
+
+                                        <TextBlock.Visibility>
+                                            <MultiBinding Converter="{StaticResource RegisteredToVisibility}">
+                                                <Binding Path="RegisteredUsers"/>
+                                                <Binding Path="DataContext.username"
+                                                         RelativeSource="{RelativeSource AncestorType=Page}"/>
+                                            </MultiBinding>
+                                        </TextBlock.Visibility>
+
+                                        Tilmeldt
+                                    </TextBlock>
+
+                                </StackPanel>
+
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <!-- Knapper -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,20,0,0">
+
+                <Button x:Name="OpenActivityBtn"
+                        Content="Åbn aktivitet"
+                        Width="140"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource OrangeButton}"
+                        Click="OpenActivity"/>
+
+                <Button x:Name="SignUpActivityBtn"
+                        Content="Tilmeld dig"
+                        Width="140"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource OrangeButton}"
+                        Click="SignUpActivity"/>
+
+                <Button Content="Log ud"
+                        Width="120"
+                        Style="{StaticResource OrangeButton}"
+                        Click="logOut"/>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
 </Page>
