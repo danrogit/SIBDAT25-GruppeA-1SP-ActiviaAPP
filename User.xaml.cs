@@ -8,19 +8,26 @@ using ActiviaAPP.Popups;
 
 namespace ActiviaAPP
 {
+    //Partial class user, partial tillader os at dele klassen i flere filer
     public partial class User : Page, INotifyPropertyChanged
     {
-        // Attributter
+        //Attributter
         private string? _username;
         
+        //Denne string behøves ingen værdi, grundet "?"
         public string? username
         {
+            //Get og set username for et medlem
             get => _username;
             set
             {
+                //Hvis brugernavn er forskelligt fra den nuværende værdi, opdateres den og OnPropertyChanged kaldes
                 if (_username != value)
                 {
+                    //Username bliver sat til den nye værdi
                     _username = value;
+
+                    //Informerer UI om at værdien er ændret "Username"
                     OnPropertyChanged();
                 }
             }
@@ -31,9 +38,12 @@ namespace ActiviaAPP
         public string? userMail;
         public int userPhone;
 
+        //Kontruktør for User klassen
         public User()
         {
             InitializeComponent();
+
+            //Binder kode og XAML med hinanden, så de begge bliver opdateret
             DataContext = this; 
             
             //Binder aktivitetslisten "ActivityStore" med aktivitetslisten hos medlem
@@ -47,8 +57,14 @@ namespace ActiviaAPP
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Metode der håndterer log ud for et medlem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logOut(object sender, RoutedEventArgs e)
         {
+            //Navigerer tilbage til login siden
             NavigationService?.Navigate(new Login());
         }
 
@@ -59,11 +75,13 @@ namespace ActiviaAPP
 
         private void UserListbox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            //Kalder metode der åbner den valgte aktivitets detaljer
             OpenSelectedActivityDetails();
         }
 
         private void OpenActivity(object sender, RoutedEventArgs e)
         {
+            
             OpenSelectedActivityDetails();
         }
 
@@ -72,6 +90,7 @@ namespace ActiviaAPP
         /// </summary>
         private void OpenSelectedActivityDetails()
         {
+            //Henter den valgte aktivitet fra listen, som er af typen ActivityClass
             var activity = UserListbox.SelectedItem as ActivityClass;
 
             //If-sætning hvis ingen aktivitiet er valgt
@@ -82,9 +101,13 @@ namespace ActiviaAPP
                 return;
             }
 
-            //Den valgte aktivitets detaljer vises
+            //Hvis username er tom eller kun indeholder mellemrum, bruges userFullName i stedet
             var userId = string.IsNullOrWhiteSpace(username) ? userFullName : username;
+
+            //Viser aktivitetsdetaljer i et nyt vindue med bruger ID
             var dlg = new ActivityDetails(activity, userId ?? string.Empty);
+
+            //Viser dialog vindue
             dlg.ShowDialog();
         }
 
@@ -95,6 +118,7 @@ namespace ActiviaAPP
         /// <param name="e"></param>
         private void SignUpActivity(object sender, RoutedEventArgs e) 
         {
+            //Henter den valgte aktivitet fra listen, som er af typen ActivityClass
             var activity = UserListbox.SelectedItem as ActivityClass;
 
            //If-sætning i tilfælde af at ingen aktivitet er valgt
