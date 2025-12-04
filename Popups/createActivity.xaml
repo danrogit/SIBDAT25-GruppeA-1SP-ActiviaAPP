@@ -1,8 +1,45 @@
 ﻿<Window x:Class="ActiviaAPP.Popups.CreateActivity"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Create Activity" Height="605" Width="500"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Create Activity" Height="700" Width="900"
+        ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Orange knap-stil (genbruges flere steder i popup'en) -->
+        <Style x:Key="OrangeButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFF95F20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FFF95F20"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontFamily" Value="Poppins"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Hover-effekt: mørkere orange -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFE05314"/>
+                            </Trigger>
+                            <!-- Disabled-tilstand: lavere opacity -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -11,86 +48,99 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Titel -->
+        <!-- Overskrift for popup'en -->
         <TextBlock Text="Ny aktivitet"
                    FontSize="24"
                    FontWeight="Bold"
-                   Margin="0,0,0,20" FontFamily="Poppins" UseLayoutRounding="True" Foreground="#FFF95F20"/>
+                   Margin="0,0,0,20"
+                   FontFamily="Poppins"
+                   Foreground="#FFF95F20"/>
 
-        <!-- Stackpanel ( er lidt ligesom en div i webkode, det hjælper med layouttet -->
-        <StackPanel Grid.Row="1" Margin="0,0,0,20">
+        <!-- Hovedindhold: to kolonner -->
+        <!-- Venstre kolonne: inputfelter -->
+        <!-- Højre kolonne: preview af cover-billede og knap til at vælge billede -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
 
-            <!-- aktivitetTitel -->
-            <TextBlock Text="Titel" FontWeight="Bold" FontFamily="Poppins"/>
-            <TextBox x:Name="TitleBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" TextChanged="titleChange" Height="25"/>
+            <!-- VENSTRE: indtastningsfelter (rulbar hvis nødvendigt) -->
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
 
-            <!-- aktivitetGenre - fungerer ligesom en dropdown med flere valgmuligheder -->
-            <TextBlock Text="Aktivitetstype" FontWeight="Bold" FontFamily="Poppins"/>
-            <ComboBox x:Name="TypeBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" Height="25">
-                <!-- styling -->
-                <ComboBoxItem Content="Sport"/>
-                <!-- kategori-->
-                <ComboBoxItem Content="Familie"/>
-                <!-- kategori-->
-                <ComboBoxItem Content="Eventyr"/>
-                <!-- kategori-->
-                <ComboBoxItem Content="Afslapning"/>
-                <!-- kategori-->
-                <ComboBoxItem Content="Natur"/>
-                <!-- kategori-->
-                <ComboBoxItem Content="Kutur"/>
-                <!-- kategori-->
-            </ComboBox>
+                    <!-- Titel -->
+                    <TextBlock Text="Titel" FontWeight="Bold" FontFamily="Poppins"/>
+                    <TextBox x:Name="TitleBox" Margin="0,0,0,10" Height="28"
+                             FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9"
+                             TextChanged="titleChange"/>
 
-            <!-- aktivitetDato -->
-            <TextBlock Text="Dato" FontWeight="Bold" FontFamily="Poppins"/>
-            <!-- styling -->
-            <DatePicker x:Name="DateBox" Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" Height="25"/>
+                    <!-- Aktivitetstype (ComboBox med foruddefinerede kategorier) -->
+                    <TextBlock Text="Aktivitetstype" FontWeight="Bold" FontFamily="Poppins"/>
+                    <ComboBox x:Name="TypeBox" Margin="0,0,0,10" Height="28"
+                              FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9">
+                        <ComboBoxItem Content="Sport"/>
+                        <ComboBoxItem Content="Familie"/>
+                        <ComboBoxItem Content="Eventyr"/>
+                        <ComboBoxItem Content="Afslapning"/>
+                        <ComboBoxItem Content="Natur"/>
+                        <ComboBoxItem Content="Kultur"/>
+                    </ComboBox>
 
-            <!-- aktivitetBeskrivelse -->
-            <TextBlock Text="Beskrivelse" FontWeight="Bold" FontFamily="Poppins"/>
-            <TextBox x:Name="DescriptionBox"
-                     Height="80"
-                     TextWrapping="Wrap"
-                     AcceptsReturn="True"
-                     BorderBrush="#FFC9D1DC" Background="#FFF2F5F9"
-                     Margin="0,0,0,10" FontFamily="Yu Gothic UI Semibold"/>
+                    <!-- Dato-vælger -->
+                    <TextBlock Text="Dato" FontWeight="Bold" FontFamily="Poppins"/>
+                    <DatePicker x:Name="DateBox" Margin="0,0,0,10" Height="28"
+                                FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9"/>
 
-            <!-- aktivitetDeltagere -->
-            <TextBlock Text="Maksimum antal deltagere" FontWeight="Bold" FontFamily="Poppins"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="1" Margin="0,0,10,0"/>
-                <Slider x:Name="ParticipantSlider"
-                        Minimum="1"
-                        Maximum="100"
-                        Value="10"
-                        Width="350"
-                        Margin="0,0,10,0"
+                    <!-- Beskrivelse (flere linjer) -->
+                    <TextBlock Text="Beskrivelse" FontWeight="Bold" FontFamily="Poppins"/>
+                    <TextBox x:Name="DescriptionBox" Height="120" TextWrapping="Wrap" AcceptsReturn="True"
+                             FontFamily="Yu Gothic UI Semibold" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9"
+                             Margin="0,0,0,10"/>
 
-                        ValueChanged="participantValue"/>
-                <TextBlock Text="100" Margin="0,0,10,0"/>
-                <TextBlock x:Name="ParticipantValue" Text="10"/>
-            </StackPanel>
+                    <!-- Maksimum antal deltagere med slider -->
+                    <TextBlock Text="Maksimum antal deltagere" FontWeight="Bold" FontFamily="Poppins"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,10">
+                        <!-- Minimum label -->
+                        <TextBlock Text="1" Margin="0,0,10,0"/>
+                        <!-- Slider hvor brugeren kan vælge max deltagere -->
+                        <Slider x:Name="ParticipantSlider" Minimum="1" Maximum="100" Value="10" Width="300"
+                                Margin="0,0,10,0" ValueChanged="participantValue"/>
+                        <!-- Maximum label -->
+                        <TextBlock Text="100" Margin="0,0,10,0"/>
+                        <!-- Vis den aktuelle valgte værdi -->
+                        <TextBlock x:Name="ParticipantValue" Text="10"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
 
-            <!-- aktivitetCover -->
-            <TextBlock Text="Cover Billede" FontWeight="Bold" Margin="0,10,0,5" FontFamily="Poppins"/>
-            <StackPanel Orientation="Horizontal" Height="115">
-                <Button Content="Vælg billede" Click="imgClick" Width="109" Height="112" BorderBrush="#FFC9D1DC" Background="#FFF2F5F9" FontFamily="Poppins" />
-                <Image x:Name="PreviewImage"
-                       Width="340" Height="111"
-                       OpacityMask="White"/>
-            </StackPanel>
+            <!-- HØJRE: preview og knap til at vælge cover-billede -->
+            <Border Grid.Column="1" Background="#FFF2F5F9" BorderBrush="#FFC9D1DC"
+                    BorderThickness="1" CornerRadius="6" Padding="10" Margin="12,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        </StackPanel>
+                    <!-- Knap til at vælge cover placeret øverst til højre -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Vælg cover" Width="140" Height="36" Style="{StaticResource OrangeButton}" Click="imgClick"/>
+                    </StackPanel>
 
-        <!-- Footer knapper -->
+                    <!-- Stort preview-billede (Viewbox sørger for at tilpasse størrelsen) -->
+                    <Viewbox Grid.Row="1" Stretch="Uniform" StretchDirection="Both" Margin="0,8,0,0">
+                        <Image x:Name="PreviewImage" Width="440" Height="420" Stretch="Uniform" Visibility="Collapsed"/>
+                    </Viewbox>
+
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- FOOTER: knapper til annullér eller opret aktivitet -->
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Annuller" Width="215" Margin="0,0,10,0" Click="cancelClick" FontFamily="Poppins"/>
-            <!-- annuller knap -->
-            <Button Content="Opret aktivitet" Width="215" Click="createClick" FontFamily="Poppins"/>
-            <!-- opret aktivitet knap -->
+            <Button Content="Annuller" Width="215" Margin="0,0,10,0" Style="{StaticResource OrangeButton}" Click="cancelClick"/>
+            <Button Content="Opret aktivitet" Width="215" Style="{StaticResource OrangeButton}" Click="createClick"/>
         </StackPanel>
-
     </Grid>
-
 </Window>

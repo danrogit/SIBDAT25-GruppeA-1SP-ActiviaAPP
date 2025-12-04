@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Img\activia-icon.ico" />
+    <None Remove="Img\activia-logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Img\activia-icon.ico" />
+    <Resource Include="Img\activia-logo.png" />
+  </ItemGroup>
+
 </Project>
